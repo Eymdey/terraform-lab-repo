@@ -1,0 +1,31 @@
+# Playbook configuration globale
+---
+- name: Configuration de base
+  hosts: managed
+  become: true
+
+  vars:
+    packages:
+      - vim
+      - net-tools
+      - curl
+      - wget
+      - git
+      - fail2ban
+      - rsync
+
+  tasks:
+    - name: Mise à jour apt
+      apt:
+        update_cache: yes
+
+    - name: Installation packages
+      apt:
+        name: "{{ packages }}"
+        state: present
+
+    - name: Activation fail2ban
+      service:
+        name: fail2ban
+        state: started
+        enabled: yes

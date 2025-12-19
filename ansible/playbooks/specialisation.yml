@@ -1,0 +1,31 @@
+# Playbook spécialisation serveurs
+---
+- name: Spécialisation serveurs
+  hosts: managed
+  become: true
+
+  tasks:
+    - name: Config serveur web
+      copy:
+        dest: /etc/motd
+        content: "Serveur Web - {{ inventory_hostname }}"
+      when: "'front' in group_names"
+
+    - name: Config serveur BDD
+      copy:
+        dest: /etc/motd
+        content: "Serveur Database - {{ inventory_hostname }}"
+      when: "'database' in group_names"
+
+    - name: Optimisation Apache (front)
+      lineinfile:
+        path: /etc/apache2/apache2.conf
+        line: "ServerName {{ inventory_hostname }}"
+      when: "'front' in group_names"
+      notify: Restart Apache
+
+  handlers:
+    - name: Restart Apache
+      service:
+        name: apache2
+        state: restarted
