@@ -7,6 +7,10 @@ terraform {
       version = "0.2.2-alpha.1"
     }
   }
+
+  backend "local" {
+    path = "terraform.tfstate"
+  }
 }
 
 variable "vm_count" {

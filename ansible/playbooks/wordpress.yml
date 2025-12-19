@@ -4,10 +4,13 @@
   hosts: front
   become: true
 
+  vars_files:
+    - vars/secrets.yml
+
   vars:
-    db_name: wordpress_db
-    db_user: wp_user
-    db_pass: WpSecurePass123
+    db_name: "{{ wordpress_db_name }}"
+    db_user: "{{ wordpress_db_user }}"
+    db_pass: "{{ wordpress_db_password }}"
 
   tasks:
     - name: Installation LAMP
@@ -18,6 +21,7 @@
           - php
           - php-mysql
           - libapache2-mod-php
+          - python3-pymysql
         state: present
 
     - name: Démarrage Apache
