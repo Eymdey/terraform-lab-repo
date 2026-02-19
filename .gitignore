@@ -4,13 +4,7 @@
 *.tfstate.*
 *.tfvars
 crash.log
-
-# Ansible secrets
-**/secrets.yml
-
-# Logs
 *.log
 
-# OS
-.DS_Store
-Thumbs.db
+# Secrets
+terraform/gcp/account.json
