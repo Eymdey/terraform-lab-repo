@@ -14,7 +14,7 @@ terraform {
 }
 
 variable "vm_count" {
-  default = 3
+  default = 2
 }
 
 resource "virtualbox_vm" "nodes" {
